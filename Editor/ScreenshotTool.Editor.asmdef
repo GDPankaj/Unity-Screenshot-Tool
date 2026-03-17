@@ -1,8 +1,10 @@
 {
     "name": "GDP.ScreenshotTool.Editor",
-    "rootNamespace": "",
+    "rootNamespace": "GDP.ScreenshotTool.Editor",
     "references": [],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

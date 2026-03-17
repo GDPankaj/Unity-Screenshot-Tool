@@ -1,6 +1,6 @@
 {
     "name": "GDP.ScreenshotTool",
-    "rootNamespace": "",
+    "rootNamespace": "GDP.ScreenshotTool",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

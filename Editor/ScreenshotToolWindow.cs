@@ -1,16 +1,34 @@
 using UnityEngine;
+using UnityEditor;
 
-public class ScreenshotToolWindow : MonoBehaviour
+namespace GDCP.ScreenshotTool.Editor
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class ScreenshotToolWindow : EditorWindow
     {
-        
-    }
+        private string fullPath = "C:/Screenshots/screenshot.png";
+        private int superSize = 1;
+        private int number = 1;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        [MenuItem("Window/ScreenshotUtilityByGDP/ScreenshotWindow")]
+        public static void Open()
+        {
+            GetWindow<ScreenshotToolWindow>("Screenshot");
+        }
+
+        private void OnGUI()
+        {
+            fullPath = EditorGUILayout.TextField("Full Path", fullPath);
+            superSize = EditorGUILayout.IntSlider("Super Size", superSize, 1, 5);
+
+            GUILayout.Space(10);
+
+            if (GUILayout.Button("Capture"))
+            {
+                string file = fullPath + number.ToString() + ".png";
+                number++;
+                ScreenCapture.CaptureScreenshot(file, superSize);
+                Debug.Log("Saved to: " + fullPath);
+            }
+        }
     }
 }
