@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEditor;
-
+using GDCP.ScreenshotTool;
 namespace GDCP.ScreenshotTool.Editor
 {
     public class ScreenshotToolWindow : EditorWindow
     {
-        private string fullPath = "C:/Screenshots/screenshot.png";
-        private int superSize = 1;
-        private int number = 1;
+        [SerializeField]private FolderPath fullPath = new("C:/Screenshots/screenshot.png");
+        private SerializedObject serializedObj;
+        private SerializedProperty m_fullPathProperty;
 
         [MenuItem("Window/ScreenshotUtilityByGDP/ScreenshotWindow")]
         public static void Open()
@@ -15,20 +15,15 @@ namespace GDCP.ScreenshotTool.Editor
             GetWindow<ScreenshotToolWindow>("Screenshot");
         }
 
+        private void OnEnable()
+        {
+            serializedObj = new SerializedObject(this);
+            m_fullPathProperty = serializedObj.FindProperty("fullPath");
+        }
+
         private void OnGUI()
         {
-            fullPath = EditorGUILayout.TextField("Full Path", fullPath);
-            superSize = EditorGUILayout.IntSlider("Super Size", superSize, 1, 5);
-
-            GUILayout.Space(10);
-
-            if (GUILayout.Button("Capture"))
-            {
-                string file = fullPath + number.ToString() + ".png";
-                number++;
-                ScreenCapture.CaptureScreenshot(file, superSize);
-                Debug.Log("Saved to: " + fullPath);
-            }
+            EditorGUILayout.PropertyField(m_fullPathProperty);
         }
     }
 }
